@@ -21,7 +21,7 @@ runs:
         date=$(git log -1 --pretty=format:'%cd')
         
         # Set the commit info as outputs
-        echo "::set-output name=commit_sha::$full_sha"
-        echo "::set-output name=commit_author::$author"
-        echo "::set-output name=commit_comment::$comment"
-        echo "::set-output name=commit_date::$date"
+        echo "commit_sha=$full_sha" >> $GITHUB_OUTPUT
+        echo "commit_author=$author" >> $GITHUB_OUTPUT
+        echo "commit_comment=$comment" >> $GITHUB_OUTPUT
+        echo "commit_date=$date" >> $GITHUB_OUTPUT
