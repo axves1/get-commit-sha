@@ -1,26 +1,27 @@
-name: Generate Short Commit SHA
-description: 'Get the shortened commit SHA in current directory'
-
-inputs:
-  digits:
-    description: 'The number of digits to shorten the commit SHA to.'
-    required: true
-    default: '7'
+name: Generate Commit Info
+description: 'Get the full commit information in current directory'
 
 runs:
   using: "composite"
   steps:
-    - name: Generate Short Commit SHA
+    - name: Get Commit Info
+      id: commit_info
       shell: bash
       run: |
-        # Get the number of digits from the input
-        digits=${{ inputs.digits }}
-        
         # Get the full commit SHA
         full_sha=$(git rev-parse HEAD)
         
-        # Shorten the commit SHA based on the number of digits
-        shortened_sha=${full_sha:0:$digits}
+        # Get the commit author
+        author=$(git log -1 --pretty=format:'%an')
         
-        # Set the shortened commit SHA as an output
-        echo "::set-output name=short_sha::$shortened_sha"
+        # Get the commit message
+        comment=$(git log -1 --pretty=format:'%s')
+        
+        # Get the commit date
+        date=$(git log -1 --pretty=format:'%cd')
+        
+        # Set the commit info as outputs
+        echo "::set-output name=commit_sha::$full_sha"
+        echo "::set-output name=commit_author::$author"
+        echo "::set-output name=commit_comment::$comment"
+        echo "::set-output name=commit_date::$date"
