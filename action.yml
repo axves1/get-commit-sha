@@ -1,0 +1,26 @@
+name: Generate Short Commit SHA
+description: 'Get the shortened commit SHA in current directory'
+
+inputs:
+  digits:
+    description: 'The number of digits to shorten the commit SHA to.'
+    required: true
+    default: '7'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate Short Commit SHA
+      shell: bash
+      run: |
+        # Get the number of digits from the input
+        digits=${{ inputs.digits }}
+        
+        # Get the full commit SHA
+        full_sha=$(git rev-parse HEAD)
+        
+        # Shorten the commit SHA based on the number of digits
+        shortened_sha=${full_sha:0:$digits}
+        
+        # Set the shortened commit SHA as an output
+        echo "::set-output name=short_sha::$shortened_sha"
