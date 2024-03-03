@@ -15,7 +15,7 @@ runs:
         author=$(git log -1 --pretty=format:'%an')
         
         # Get the commit message
-        comment=$(git log -1 --pretty=format:'%s')
+        message=$(git log -1 --pretty=format:'%s')
         
         # Get the commit date
         date=$(git log -1 --pretty=format:'%cd')
@@ -23,5 +23,5 @@ runs:
         # Set the commit info as outputs
         echo "commit_sha=$full_sha" >> $GITHUB_OUTPUT
         echo "commit_author=$author" >> $GITHUB_OUTPUT
-        echo "commit_comment=$comment" >> $GITHUB_OUTPUT
+        echo "commit_message=$message" >> $GITHUB_OUTPUT
         echo "commit_date=$date" >> $GITHUB_OUTPUT
