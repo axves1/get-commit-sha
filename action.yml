@@ -1,10 +1,17 @@
 name: Generate Commit Info
 description: 'Get the full commit information in current directory'
 
+inputs:
+  working-directory:
+    description: 'The working directory to run the command'
+    required: false
+    default: '.'
+
 runs:
   using: "composite"
   steps:
     - name: Get Commit Info
+      working-directory: ${{ inputs.working-directory }}
       id: commit_info
       shell: bash
       run: |
