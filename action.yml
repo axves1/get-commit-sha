@@ -7,6 +7,20 @@ inputs:
     required: false
     default: '.'
 
+outputs:
+  commit_sha:
+    description: 'The full commit SHA'
+    value: ${{ steps.commit_info.outputs.commit_sha }}
+  commit_author:
+    description: 'The commit author'
+    value: ${{ steps.commit_info.outputs.commit_author }}
+  commit_message:
+    description: 'The commit message'
+    value: ${{ steps.commit_info.outputs.commit_message }}
+  commit_date:
+    description: 'The commit date'
+    value: ${{ steps.commit_info.outputs.commit_date }}
+
 runs:
   using: "composite"
   steps:
@@ -15,6 +29,7 @@ runs:
       id: commit_info
       shell: bash
       run: |
+        pwd
         # Get the full commit SHA
         full_sha=$(git rev-parse HEAD)
         
